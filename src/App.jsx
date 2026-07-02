@@ -35,7 +35,7 @@ const styles = `
   }
 
   .splash-fox-wrap {
-    width: 180px; height: 180px;
+    width: 200px; height: 200px;
     background: transparent;
     border-radius: 50%;
     display: flex;
@@ -47,9 +47,10 @@ const styles = `
   }
 
   .splash-fox-wrap img {
-    width: 210px;
-    height: 210px;
+    width: 220px;
+    height: 220px;
     object-fit: contain;
+    mix-blend-mode: multiply;
     filter: drop-shadow(0 12px 24px rgba(200,100,50,0.2));
   }
 
@@ -356,7 +357,51 @@ const styles = `
     font-weight: 700;
   }
 
-  .content { flex: 1; padding: 20px 16px 100px; }
+  .topbar-pill {
+    background: linear-gradient(135deg, #E8844A, #FFAC6A);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(232,132,74,0.3);
+    white-space: nowrap;
+  }
+
+  .page-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 10px 0 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .page-tabs::-webkit-scrollbar { display: none; }
+
+  .page-tab {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border: none;
+    background: rgba(232,132,74,0.08);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #AAA;
+    border-radius: 100px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .page-tab.active {
+    background: linear-gradient(135deg, #E8844A, #FFAC6A);
+    color: white;
+    box-shadow: 0 4px 12px rgba(232,132,74,0.3);
+  }
+
+  .content { flex: 1; padding: 24px 16px 40px; }
 
   .greeting-row {
     display: flex;
@@ -1384,13 +1429,13 @@ export default function GigNest() {
           <div className="splash-sub">Earn real money with surveys, tasks, gigs, mystery shopping and more</div>
           <div className="splash-cats">
             {[
-              { label:"Surveys & Tasks", icon:"📋", color:"#4CAF82" },
-              { label:"Gigs & Field Work", icon:"📍", color:"#5B8DEF" },
-              { label:"Mystery Shopping", icon:"🛍️", color:"#9B6FE8" },
-              { label:"Promo & Temp Shifts", icon:"🎪", color:"#F4843A" },
-              { label:"Pet & House Sitting", icon:"🐶", color:"#E8519A" },
+              { label:"Surveys & Tasks", icon:"📋", color:"#4CAF82", cat:"surveys" },
+              { label:"Gigs & Field Work", icon:"📍", color:"#5B8DEF", cat:"gigs" },
+              { label:"Mystery Shopping", icon:"🛍️", color:"#9B6FE8", cat:"mystery" },
+              { label:"Promo & Temp Shifts", icon:"🎪", color:"#F4843A", cat:"promo" },
+              { label:"Pet & House Sitting", icon:"🐶", color:"#E8519A", cat:"petsitting" },
             ].map(cat => (
-              <div key={cat.label} className="splash-cat-btn" style={{background: cat.color}}>
+              <div key={cat.label} className="splash-cat-btn" style={{background: cat.color, cursor:"pointer"}} onClick={() => { setCatFilter(cat.cat); setScreen("app"); setAppTab("home"); }}>
                 <div className="cat-btn-icon">{cat.icon}</div>
                 {cat.label}
               </div>
@@ -1801,8 +1846,10 @@ export default function GigNest() {
     <>
       <style>{styles}</style>
       <div className="app">
-        <button className="temp-app-btn" onClick={() => setScreen("splash")}>🦊 GigNest App</button>
+        <button className="temp-app-btn" onClick={() => setScreen("splash")}>🦊 GigNest</button>
         <div className="main-app">
+
+          {/* TOP NAV BAR */}
           <div className="topbar">
             <div className="topbar-row">
               <div className="topbar-logo">
@@ -1812,6 +1859,9 @@ export default function GigNest() {
                 Gig<span>N</span>est
               </div>
               <div className="topbar-right">
+                <div className="topbar-pill" onClick={() => setAppTab("wallet")}>
+                  💰 £{balance.toFixed(2)}
+                </div>
                 <div className="topbar-notif" onClick={() => showToast("No new notifications")}>
                   🔔
                   <div className="notif-dot" />
@@ -1819,7 +1869,23 @@ export default function GigNest() {
                 <div className="topbar-avatar" onClick={() => setAppTab("profile")}>{userName[0]}</div>
               </div>
             </div>
-            {appTab === "home" && (
+
+            {/* PAGE TABS */}
+            <div className="page-tabs">
+              {[
+                {id:"home", label:"🏠 Home"},
+                {id:"earn", label:"⚡ Earn"},
+                {id:"wallet", label:"💰 Wallet"},
+                {id:"profile", label:"👤 Profile"},
+              ].map(tab => (
+                <button key={tab.id} className={`page-tab${appTab===tab.id?" active":""}`} onClick={() => setAppTab(tab.id)}>
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* CATEGORY FILTER — only on home and earn */}
+            {(appTab === "home" || appTab === "earn") && (
               <div className="nav-tabs">
                 {CATEGORIES.map(cat => (
                   <button key={cat.id} className={`nav-tab${catFilter===cat.id?" active":""}`} onClick={() => setCatFilter(cat.id)}>
@@ -1835,19 +1901,6 @@ export default function GigNest() {
           {appTab === "wallet" && renderWallet()}
           {appTab === "profile" && renderProfile()}
 
-          <div className="bottom-nav">
-            {[
-              {id:"home", emoji:"🏠", label:"Home"},
-              {id:"earn", emoji:"⚡", label:"Earn"},
-              {id:"wallet", emoji:"💰", label:"Wallet"},
-              {id:"profile", emoji:"👤", label:"Profile"},
-            ].map(item => (
-              <button key={item.id} className={`bottom-nav-item${appTab===item.id?" active":""}`} onClick={() => setAppTab(item.id)}>
-                <div className="bottom-nav-icon">{item.emoji}</div>
-                <div className="bottom-nav-label">{item.label}</div>
-              </button>
-            ))}
-          </div>
         </div>
 
         {showPayout && (

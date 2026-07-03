@@ -1414,13 +1414,29 @@ export default function GigNest() {
     showToast(`🎉 Applied! £${pay.toFixed(2)} pending`);
   };
 
-  const filteredTasks = catFilter === "all" ? TASKS : TASKS.filter(t => t.category === catFilter);
+  const CAT_GROUPS = {
+    surveys: ["surveys", "tasks"],
+    gigs: ["gigs", "shifts"],
+    mystery: ["mystery"],
+    promo: ["promo"],
+    petsitting: ["petsitting", "housesitting"],
+    delivery: ["delivery"],
+    tutoring: ["tutoring"],
+    all: null,
+  };
+
+  const filteredTasks = catFilter === "all"
+    ? TASKS
+    : TASKS.filter(t => {
+        const group = CAT_GROUPS[catFilter];
+        return group ? group.includes(t.category) : t.category === catFilter;
+      });
 
   if (screen === "splash") return (
     <>
       <style>{styles}</style>
       <div className="app">
-        <button className="temp-app-btn" onClick={() => { setScreen("app"); setAppTab("home"); }}>🦊 Enter App</button>
+        <button className="temp-app-btn" onClick={() => { setScreen("main"); setAppTab("home"); }}>🦊 Enter App</button>
         <div className="splash">
           <div className="splash-fox-wrap">
             <img src="/fox-mascot.jpg" alt="GigNest Fox" />
@@ -1435,7 +1451,8 @@ export default function GigNest() {
               { label:"Promo & Temp Shifts", icon:"🎪", color:"#F4843A", cat:"promo" },
               { label:"Pet & House Sitting", icon:"🐶", color:"#E8519A", cat:"petsitting" },
             ].map(cat => (
-              <div key={cat.label} className="splash-cat-btn" style={{background: cat.color, cursor:"pointer"}} onClick={() => { setCatFilter(cat.cat); setScreen("app"); setAppTab("home"); }}>
+              <div key={cat.label} className="splash-cat-btn" style={{background: cat.color, cursor:"pointer"}}
+                onClick={() => { setCatFilter(cat.cat); setAppTab("earn"); setScreen("main"); }}>
                 <div className="cat-btn-icon">{cat.icon}</div>
                 {cat.label}
               </div>
@@ -1467,7 +1484,7 @@ export default function GigNest() {
               <div className="input-label">Password</div>
               <input className="input-field" type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
-            <button className="auth-btn" onClick={() => { setScreen("app"); setAppTab("home"); }}>Sign In</button>
+            <button className="auth-btn" onClick={() => { setScreen("main"); setAppTab("home"); }}>Sign In</button>
             <div className="auth-switch">Don't have an account? <span onClick={() => setScreen("signup")}>Sign up free</span></div>
           </div>
         </div>
@@ -1498,7 +1515,7 @@ export default function GigNest() {
               <div className="input-label">Password</div>
               <input className="input-field" type="password" placeholder="Choose a password" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
-            <button className="auth-btn" onClick={() => { if(name) setUserName(name.split(" ")[0]); setScreen("app"); setAppTab("home"); }}>Create My Account</button>
+            <button className="auth-btn" onClick={() => { if(name) setUserName(name.split(" ")[0]); setScreen("main"); setAppTab("home"); }}>Create My Account</button>
             <div className="auth-switch">Already have an account? <span onClick={() => setScreen("login")}>Sign in</span></div>
           </div>
         </div>
@@ -1665,11 +1682,22 @@ export default function GigNest() {
     </div>
   );
 
+  const CAT_TITLES = {
+    surveys: "Surveys & Tasks",
+    gigs: "Gigs & Field Work",
+    mystery: "Mystery Shopping",
+    promo: "Promo & Temp Shifts",
+    petsitting: "Pet & House Sitting",
+    delivery: "Delivery",
+    tutoring: "Tutoring",
+    all: "All Opportunities",
+  };
+
   const renderEarn = () => (
     <div className="content">
       <button className="page-back-btn" onClick={() => setAppTab("home")}>← Back</button>
-      <div style={{fontFamily:"'Syne',sans-serif", fontSize:24, fontWeight:800, marginBottom:6}}>All Opportunities</div>
-      <div style={{fontSize:14, color:"#AAA", marginBottom:20}}>{TASKS.length} jobs available near you</div>
+      <div style={{fontFamily:"'Syne',sans-serif", fontSize:24, fontWeight:800, marginBottom:6}}>{CAT_TITLES[catFilter] || "All Opportunities"}</div>
+      <div style={{fontSize:14, color:"#AAA", marginBottom:20}}>{filteredTasks.length} jobs available</div>
       <div className="cat-scroll" style={{marginBottom:20}}>
         {CATEGORIES.map(cat => (
           <div key={cat.id} className={`cat-card${catFilter===cat.id?" active":""}`} onClick={() => setCatFilter(cat.id)}>

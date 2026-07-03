@@ -1,0 +1,22 @@
+{
+  "name": "GigNest",
+  "short_name": "GigNest",
+  "description": "Earn real money with surveys, tasks, gigs, mystery shopping and more",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFE8D6",
+  "theme_color": "#E8844A",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/fox-mascot.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/fox-mascot.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

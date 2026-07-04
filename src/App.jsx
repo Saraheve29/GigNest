@@ -1435,7 +1435,7 @@ export default function GigNest() {
     <>
       <style>{styles}</style>
       <div className="app">
-        <button className="temp-app-btn" onClick={() => { setScreen("main"); setAppTab("home"); }}>🦊 Enter App</button>
+        <button className="temp-app-btn" onClick={() => { setScreen("app"); setAppTab("home"); }}>🦊 Enter App</button>
         <div className="splash">
           <div className="splash-fox-wrap">
             <img src="/fox-icon-192.png" alt="GigNest Fox" />
@@ -1451,7 +1451,7 @@ export default function GigNest() {
               { label:"Pet & House Sitting", icon:"🐶", color:"#E8519A", cat:"petsitting" },
             ].map(cat => (
               <div key={cat.label} className="splash-cat-btn" style={{background: cat.color, cursor:"pointer"}}
-                onClick={() => { setCatFilter(cat.cat); setAppTab("earn"); setScreen("main"); }}>
+                onClick={() => { setCatFilter(cat.cat); setAppTab("earn"); setScreen("app"); }}>
                 <div className="cat-btn-icon">{cat.icon}</div>
                 {cat.label}
               </div>
@@ -1483,7 +1483,7 @@ export default function GigNest() {
               <div className="input-label">Password</div>
               <input className="input-field" type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
-            <button className="auth-btn" onClick={() => { setScreen("main"); setAppTab("home"); }}>Sign In</button>
+            <button className="auth-btn" onClick={() => { setScreen("app"); setAppTab("home"); }}>Sign In</button>
             <div className="auth-switch">Don't have an account? <span onClick={() => setScreen("signup")}>Sign up free</span></div>
           </div>
         </div>
@@ -1514,7 +1514,7 @@ export default function GigNest() {
               <div className="input-label">Password</div>
               <input className="input-field" type="password" placeholder="Choose a password" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
-            <button className="auth-btn" onClick={() => { if(name) setUserName(name.split(" ")[0]); setScreen("main"); setAppTab("home"); }}>Create My Account</button>
+            <button className="auth-btn" onClick={() => { if(name) setUserName(name.split(" ")[0]); setScreen("app"); setAppTab("home"); }}>Create My Account</button>
             <div className="auth-switch">Already have an account? <span onClick={() => setScreen("login")}>Sign in</span></div>
           </div>
         </div>
@@ -1868,6 +1868,9 @@ export default function GigNest() {
       </div>
     </div>
   );
+
+  // Main app screen guard
+  if (screen !== "app") return null;
 
   return (
     <>

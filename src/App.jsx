@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(160deg, #FFF5EF 0%, #FFF9F5 30%, #FFFCF9 55%, #FFF0E8 80%, #FFE9DA 100%);
     background-attachment: fixed;
     color: #1A1A1A;
@@ -55,11 +55,11 @@ const styles = `
   }
 
   .splash-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 52px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 38px;
     font-weight: 800;
     color: #3A2010;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
     margin-bottom: 8px;
   }
 
@@ -85,14 +85,14 @@ const styles = `
 
   .splash-cat-btn {
     width: 100%;
-    padding: 13px 20px;
+    padding: 15px 20px;
     border: none;
     border-radius: 100px;
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
     font-weight: 700;
     color: white;
-    cursor: default;
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 14px;
@@ -117,7 +117,7 @@ const styles = `
     color: white;
     border: none;
     border-radius: 100px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 17px;
     font-weight: 700;
     cursor: pointer;
@@ -170,7 +170,7 @@ const styles = `
   }
 
   .auth-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 32px;
     font-weight: 800;
     color: #3A2010;
@@ -202,7 +202,7 @@ const styles = `
     padding: 16px 18px;
     border: 2px solid #F0E8E0;
     border-radius: 14px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     color: #1A1A1A;
     background: white;
@@ -219,7 +219,7 @@ const styles = `
     color: white;
     border: none;
     border-radius: 14px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
@@ -233,7 +233,7 @@ const styles = `
   .auth-switch {
     text-align: center;
     font-size: 14px;
-    color: #999;
+    color: #C4A090;
     margin-top: 8px;
   }
 
@@ -261,8 +261,8 @@ const styles = `
   }
 
   .topbar-logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
     font-weight: 800;
     color: #1A1A1A;
     display: flex;
@@ -339,10 +339,10 @@ const styles = `
     border: none;
     background: none;
     cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 500;
-    color: #AAA;
+    color: #C4A090;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -360,7 +360,7 @@ const styles = `
   .topbar-pill {
     background: linear-gradient(135deg, #E8844A, #FFAC6A);
     color: white;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 700;
     padding: 8px 14px;
@@ -386,10 +386,10 @@ const styles = `
     border: none;
     background: rgba(232,132,74,0.08);
     cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 600;
-    color: #AAA;
+    color: #C4A090;
     border-radius: 100px;
     transition: all 0.2s;
     white-space: nowrap;
@@ -401,7 +401,7 @@ const styles = `
     box-shadow: 0 4px 12px rgba(232,132,74,0.3);
   }
 
-  .content { flex: 1; padding: 24px 16px 40px; }
+  .content { flex: 1; padding: 20px 16px 90px; }
 
   .greeting-row {
     display: flex;
@@ -411,19 +411,19 @@ const styles = `
   }
 
   .greeting-text { }
-  .greeting-small { font-size: 13px; color: #AAA; margin-bottom: 3px; }
-  .greeting-name { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: #1A1A1A; }
+  .greeting-small { font-size: 12px; color: #C4A090; margin-bottom: 3px; }
+  .greeting-name { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700; color: #1A1A1A; }
 
   .streak-badge {
     background: linear-gradient(135deg, #FFE4C4, #FFCBA4);
     border-radius: 16px;
-    padding: 10px 14px;
+    padding: 8px 12px;
     text-align: center;
     border: 2px solid rgba(255,160,64,0.2);
   }
 
-  .streak-num { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: #E8844A; }
-  .streak-label { font-size: 10px; color: #9A6040; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+  .streak-num { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 900; color: #E8844A; }
+  .streak-label { font-size: 9px; color: #9A6040; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
 
   .wallet-card {
     background: linear-gradient(135deg, #E8844A 0%, #FFAC6A 50%, #FFB87A 100%);
@@ -479,12 +479,12 @@ const styles = `
   }
 
   .wallet-amount {
-    font-family: 'Syne', sans-serif;
-    font-size: 46px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 38px;
     font-weight: 800;
     color: white;
     margin-bottom: 20px;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     position: relative;
     z-index: 1;
   }
@@ -500,7 +500,7 @@ const styles = `
   .wallet-stats { display: flex; gap: 24px; }
 
   .wallet-stat-val {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 17px;
     font-weight: 700;
     color: white;
@@ -523,7 +523,7 @@ const styles = `
     cursor: pointer;
     backdrop-filter: blur(5px);
     transition: background 0.2s;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   .wallet-btn:hover { background: rgba(255,255,255,0.32); }
@@ -536,9 +536,9 @@ const styles = `
   }
 
   .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
     color: #1A1A1A;
   }
 
@@ -595,7 +595,7 @@ const styles = `
   }
 
   .cat-name {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 11px;
     font-weight: 700;
     color: #1A1A1A;
@@ -603,7 +603,7 @@ const styles = `
     line-height: 1.2;
   }
 
-  .cat-count { font-size: 10px; color: #BBB; }
+  .cat-count { font-size: 10px; color: #D4B0A0; }
 
   .featured-scroll {
     display: flex;
@@ -645,8 +645,8 @@ const styles = `
   }
 
   .featured-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
     font-weight: 800;
     color: white;
     margin-bottom: 6px;
@@ -666,7 +666,7 @@ const styles = `
   }
 
   .featured-pay {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 20px;
     font-weight: 800;
     color: white;
@@ -718,7 +718,7 @@ const styles = `
 
   .task-company {
     font-size: 11px;
-    color: #AAA;
+    color: #E8A882;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.3px;
@@ -726,10 +726,10 @@ const styles = `
   }
 
   .task-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: #1A1A1A;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2A1A0A;
     margin-bottom: 6px;
     line-height: 1.3;
   }
@@ -738,22 +738,22 @@ const styles = `
 
   .task-time {
     font-size: 11px;
-    color: #AAA;
+    color: #E8A882;
     display: flex;
     align-items: center;
     gap: 3px;
-    background: #F5F5F5;
+    background: #FFF0E6;
     padding: 3px 8px;
     border-radius: 100px;
   }
 
   .task-location {
     font-size: 11px;
-    color: #AAA;
+    color: #E8A882;
     display: flex;
     align-items: center;
     gap: 3px;
-    background: #F5F5F5;
+    background: #FFF0E6;
     padding: 3px 8px;
     border-radius: 100px;
   }
@@ -770,7 +770,7 @@ const styles = `
   .task-right { text-align: right; flex-shrink: 0; }
 
   .task-pay {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 800;
     color: #E8844A;
@@ -860,12 +860,12 @@ const styles = `
     font-size: 32px;
     font-weight: 800;
     color: white;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     border: 2px solid rgba(255,255,255,0.4);
   }
 
   .profile-name {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 22px;
     font-weight: 800;
     color: white;
@@ -895,10 +895,10 @@ const styles = `
   }
 
   .profile-section-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 700;
-    color: #BBB;
+    color: #D4B0A0;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     padding: 14px 18px 8px;
@@ -929,7 +929,7 @@ const styles = `
 
   .profile-row-text { flex: 1; font-size: 15px; font-weight: 500; color: #1A1A1A; }
   .profile-row-arrow { color: #DDD; font-size: 18px; }
-  .profile-row-value { font-size: 13px; color: #BBB; margin-right: 6px; }
+  .profile-row-value { font-size: 13px; color: #D4B0A0; margin-right: 6px; }
 
   .stats-grid {
     display: grid;
@@ -947,14 +947,14 @@ const styles = `
   }
 
   .stat-box-val {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 28px;
     font-weight: 800;
     color: #E8844A;
     margin-bottom: 4px;
   }
 
-  .stat-box-label { font-size: 12px; color: #AAA; font-weight: 500; }
+  .stat-box-label { font-size: 12px; color: #C4A090; font-weight: 500; }
 
   .toast {
     position: fixed;
@@ -1004,14 +1004,14 @@ const styles = `
   }
 
   .modal-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 26px;
     font-weight: 800;
     margin-bottom: 6px;
     color: #1A1A1A;
   }
 
-  .modal-sub { font-size: 14px; color: #AAA; margin-bottom: 24px; }
+  .modal-sub { font-size: 14px; color: #C4A090; margin-bottom: 24px; }
 
   .payout-option {
     display: flex;
@@ -1032,7 +1032,7 @@ const styles = `
 
   .payout-option-icon { font-size: 30px; }
   .payout-option-name { font-weight: 700; font-size: 15px; color: #1A1A1A; }
-  .payout-option-sub { font-size: 12px; color: #AAA; margin-top: 2px; }
+  .payout-option-sub { font-size: 12px; color: #C4A090; margin-top: 2px; }
 
   .modal-btn {
     width: 100%;
@@ -1041,7 +1041,7 @@ const styles = `
     color: white;
     border: none;
     border-radius: 16px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
@@ -1086,7 +1086,7 @@ const styles = `
   }
 
   .detail-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 26px;
     font-weight: 800;
     color: #1A1A1A;
@@ -1132,14 +1132,14 @@ const styles = `
   }
 
   .detail-pay-label { color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .detail-pay-amount { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; color: white; }
+  .detail-pay-amount { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 800; color: white; }
 
   .detail-apply-btn {
     background: white;
     border: none;
     border-radius: 16px;
     padding: 14px 22px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     font-weight: 700;
     color: #E8844A;
@@ -1156,7 +1156,7 @@ const styles = `
   }
 
   .detail-section-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 800;
     color: #1A1A1A;
@@ -1195,7 +1195,7 @@ const styles = `
     color: white;
     border: none;
     border-radius: 18px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 17px;
     font-weight: 700;
     cursor: pointer;
@@ -1213,14 +1213,14 @@ const styles = `
   .empty-emoji { font-size: 56px; margin-bottom: 16px; }
 
   .empty-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 20px;
     font-weight: 700;
     color: #1A1A1A;
     margin-bottom: 8px;
   }
 
-  .empty-sub { font-size: 14px; color: #999; line-height: 1.6; }
+  .empty-sub { font-size: 14px; color: #C4A090; line-height: 1.6; }
 
   .temp-app-btn {
     position: fixed;
@@ -1232,7 +1232,7 @@ const styles = `
     border: none;
     border-radius: 100px;
     padding: 8px 16px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
@@ -1250,7 +1250,7 @@ const styles = `
     background: none;
     border: none;
     cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     font-weight: 600;
     color: #E8844A;
@@ -1696,7 +1696,7 @@ export default function GigNest() {
   const renderEarn = () => (
     <div className="content">
       <button className="page-back-btn" onClick={() => setAppTab("home")}>← Back</button>
-      <div style={{fontFamily:"'Syne',sans-serif", fontSize:24, fontWeight:800, marginBottom:6}}>{CAT_TITLES[catFilter] || "All Opportunities"}</div>
+      <div style={{fontFamily:"'Poppins',sans-serif", fontSize:24, fontWeight:800, marginBottom:6}}>{CAT_TITLES[catFilter] || "All Opportunities"}</div>
       <div style={{fontSize:14, color:"#AAA", marginBottom:20}}>{filteredTasks.length} jobs available</div>
       <div className="cat-scroll" style={{marginBottom:20}}>
         {CATEGORIES.map(cat => (
@@ -1734,7 +1734,7 @@ export default function GigNest() {
   const renderWallet = () => (
     <div className="content">
       <button className="page-back-btn" onClick={() => setAppTab("home")}>← Back</button>
-      <div style={{fontFamily:"'Syne',sans-serif", fontSize:24, fontWeight:800, marginBottom:20}}>My Wallet</div>
+      <div style={{fontFamily:"'Poppins',sans-serif", fontSize:24, fontWeight:800, marginBottom:20}}>My Wallet</div>
       <div className="wallet-card" style={{marginBottom:20}}>
         <div className="wallet-top">
           <div className="wallet-label">Available Balance</div>
@@ -1897,31 +1897,6 @@ export default function GigNest() {
                 <div className="topbar-avatar" onClick={() => setAppTab("profile")}>{userName[0]}</div>
               </div>
             </div>
-
-            {/* PAGE TABS */}
-            <div className="page-tabs">
-              {[
-                {id:"home", label:"🏠 Home"},
-                {id:"earn", label:"⚡ Earn"},
-                {id:"wallet", label:"💰 Wallet"},
-                {id:"profile", label:"👤 Profile"},
-              ].map(tab => (
-                <button key={tab.id} className={`page-tab${appTab===tab.id?" active":""}`} onClick={() => setAppTab(tab.id)}>
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
-            {/* CATEGORY FILTER — only on home and earn */}
-            {(appTab === "home" || appTab === "earn") && (
-              <div className="nav-tabs">
-                {CATEGORIES.map(cat => (
-                  <button key={cat.id} className={`nav-tab${catFilter===cat.id?" active":""}`} onClick={() => setCatFilter(cat.id)}>
-                    {cat.emoji} {cat.name}
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           {appTab === "home" && renderHome()}
@@ -1929,6 +1904,20 @@ export default function GigNest() {
           {appTab === "wallet" && renderWallet()}
           {appTab === "profile" && renderProfile()}
 
+          {/* BOTTOM NAV */}
+          <div className="bottom-nav">
+            {[
+              {id:"home", emoji:"🏠", label:"Home"},
+              {id:"earn", emoji:"⚡", label:"Earn"},
+              {id:"wallet", emoji:"💰", label:"Wallet"},
+              {id:"profile", emoji:"👤", label:"Profile"},
+            ].map(item => (
+              <button key={item.id} className={`bottom-nav-item${appTab===item.id?" active":""}`} onClick={() => setAppTab(item.id)}>
+                <div className="bottom-nav-icon">{item.emoji}</div>
+                <div className="bottom-nav-label">{item.label}</div>
+              </button>
+            ))}
+          </div>
         </div>
 
         {showPayout && (

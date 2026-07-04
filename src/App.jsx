@@ -8,7 +8,7 @@ const styles = `
   body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(160deg, #FFF5EF 0%, #FFF9F5 30%, #FFFCF9 55%, #FFF0E8 80%, #FFE9DA 100%);
-    background-attachment: fixed;
+    
     color: #1A1A1A;
     min-height: 100vh;
   }
@@ -18,7 +18,7 @@ const styles = `
     margin: 0 auto;
     min-height: 100vh;
     background: linear-gradient(160deg, #FFF5EF 0%, #FFF9F5 25%, #FFFCFA 50%, #FFF3EC 75%, #FFEADE 100%);
-    background-attachment: fixed;
+    
     position: relative;
     overflow-x: hidden;
   }
@@ -50,8 +50,7 @@ const styles = `
     width: 220px;
     height: 220px;
     object-fit: contain;
-    mix-blend-mode: multiply;
-    filter: drop-shadow(0 12px 24px rgba(200,100,50,0.2));
+    filter: drop-shadow(0 12px 24px rgba(200,100,50,0.15));
   }
 
   .splash-title {
@@ -242,9 +241,9 @@ const styles = `
   .main-app { min-height: 100vh; display: flex; flex-direction: column; }
 
   .topbar {
-    background: rgba(255,245,238,0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #FFF5EE;
+    
+    -webkit-
     padding: 20px 20px 0;
     border-bottom: 1px solid rgba(255,160,64,0.12);
     position: sticky;
@@ -566,8 +565,8 @@ const styles = `
   .cat-card {
     flex-shrink: 0;
     width: 100px;
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(10px);
+    background: #FFFFFF;
+    
     border-radius: 20px;
     padding: 16px 12px;
     cursor: pointer;
@@ -684,8 +683,8 @@ const styles = `
   .task-list { display: flex; flex-direction: column; gap: 10px; }
 
   .task-card {
-    background: rgba(255,255,255,0.8);
-    backdrop-filter: blur(10px);
+    background: #FFFFFF;
+    
     border-radius: 20px;
     padding: 16px;
     display: flex;
@@ -804,8 +803,8 @@ const styles = `
     width: 100%;
     max-width: 430px;
     background: rgba(255,245,238,0.94);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    
+    -webkit-
     border-top: 1px solid rgba(255,160,64,0.12);
     display: flex;
     padding: 12px 0 22px;
@@ -1065,7 +1064,7 @@ const styles = `
     top: 16px; left: 16px;
     width: 42px; height: 42px;
     background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(10px);
+    
     border: none;
     border-radius: 14px;
     font-size: 20px;
@@ -1439,7 +1438,7 @@ export default function GigNest() {
         <button className="temp-app-btn" onClick={() => { setScreen("main"); setAppTab("home"); }}>🦊 Enter App</button>
         <div className="splash">
           <div className="splash-fox-wrap">
-            <img src="/fox-mascot.jpg" alt="GigNest Fox" />
+            <img src="/fox-icon-192.png" alt="GigNest Fox" />
           </div>
           <div className="splash-title">Gig<span>N</span>est</div>
           <div className="splash-sub">Earn real money with surveys, tasks, gigs, mystery shopping and more</div>
@@ -1882,7 +1881,7 @@ export default function GigNest() {
             <div className="topbar-row">
               <div className="topbar-logo">
                 <div className="topbar-logo-fox">
-                  <img src="/fox-mascot.jpg" alt="fox" />
+                  <img src="/fox-icon-192.png" alt="fox" onError={(e) => { e.target.style.display='none'; }} />
                 </div>
                 Gig<span>N</span>est
               </div>

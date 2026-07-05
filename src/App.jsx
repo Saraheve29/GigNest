@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const styles = `
   /* font loaded via link tag */
@@ -1107,6 +1107,59 @@ const styles = `
   }
 `;
 
+// ============================================================
+// GIGNEST API INTEGRATION LAYER
+// When you get approved by a partner, add your API key below
+// and set enabled: true — jobs will appear automatically
+// ============================================================
+
+const API_CONFIG = {
+  // SURVEYS
+  cpx_research: {
+    enabled: false,
+    appId: "YOUR_CPX_APP_ID", // Get from cpx-research.com/publisher
+    url: (userId) => `https://offers.cpx-research.com/index.php?app_id=${API_CONFIG.cpx_research.appId}&ext_user_id=${userId}&output_method=api_json`,
+    category: "surveys",
+  },
+  bitlabs: {
+    enabled: false,
+    token: "YOUR_BITLABS_TOKEN", // Get from bitlabs.com/publishers
+    url: (userId) => `https://api.bitlabs.ai/v2/client/offers?token=${API_CONFIG.bitlabs.token}&uid=${userId}`,
+    category: "surveys",
+  },
+  // TASKS
+  toloka: {
+    enabled: false,
+    apiKey: "YOUR_TOLOKA_API_KEY", // Get from toloka.ai
+    category: "tasks",
+  },
+  // GIGS
+  gigwalk: {
+    enabled: false,
+    apiKey: "YOUR_GIGWALK_API_KEY", // Get from gigwalk.com
+    category: "gigs",
+  },
+  // MYSTERY SHOPPING
+  mobee: {
+    enabled: false,
+    apiKey: "YOUR_MOBEE_API_KEY", // Get from getmobee.com
+    category: "mystery",
+  },
+};
+
+// Affiliate links — replace # with your actual affiliate URL when approved
+const AFFILIATE_LINKS = {
+  rover: "https://rover.com/affiliates/YOUR_ID",
+  pawshake: "https://pawshake.co.uk/affiliates/YOUR_ID",
+  trustedhousesitters: "https://trustedhousesitters.com/affiliates/YOUR_ID",
+  deliveroo: "https://deliveroo.co.uk/affiliates/YOUR_ID",
+  ubereats: "https://ubereats.com/affiliates/YOUR_ID",
+  tutorful: "https://tutorful.co.uk/affiliates/YOUR_ID",
+  mytutor: "https://mytutor.co.uk/affiliates/YOUR_ID",
+  syft: "https://syftapp.com/partners/YOUR_ID",
+  indeednow: "https://indeednow.co.uk/affiliates/YOUR_ID",
+};
+
 const CATEGORIES = [
   { id:"all", name:"All", emoji:"⚡", bg:"#FFF3EC" },
   { id:"surveys", name:"Surveys", emoji:"📋", bg:"#EFF6FF" },
@@ -1204,6 +1257,84 @@ export default function GigNest() {
   const [payoutMethod, setPayoutMethod] = useState("");
   const [selectedTask, setSelectedTask] = useState(null);
   const [appliedTasks, setAppliedTasks] = useState([]);
+  const [apiTasks, setApiTasks] = useState([]);
+  const [apiLoading, setApiLoading] = useState(false);
+
+  // Fetch real jobs from enabled APIs
+  useEffect(() => {
+    const fetchApiJobs = async () => {
+      setApiLoading(true);
+      const jobs = [];
+
+      // CPX Research surveys
+      if (API_CONFIG.cpx_research.enabled) {
+        try {
+          const res = await fetch(API_CONFIG.cpx_research.url("gignest_user_1"));
+          const data = await res.json();
+          if (data.offers) {
+            data.offers.forEach(offer => {
+              jobs.push({
+                id: `cpx_${offer.id}`,
+                name: offer.name,
+                company: "CPX Research",
+                category: "surveys",
+                pay: `£${(offer.payout / 100).toFixed(2)}`,
+                time: `${offer.loi} min`,
+                location: "Remote",
+                emoji: "📋",
+                bg: "#EFF6FF",
+                tag: "Survey",
+                tagColor: "#DBEAFE",
+                tagText: "#1D4ED8",
+                desc: offer.description || "Complete this survey to earn rewards.",
+                requirements: ["UK resident", "18+"],
+                url: offer.start_link,
+                isLive: true,
+              });
+            });
+          }
+        } catch (e) { console.log("CPX fetch failed:", e); }
+      }
+
+      // Bitlabs surveys
+      if (API_CONFIG.bitlabs.enabled) {
+        try {
+          const res = await fetch(API_CONFIG.bitlabs.url("gignest_user_1"));
+          const data = await res.json();
+          if (data.data && data.data.offers) {
+            data.data.offers.forEach(offer => {
+              jobs.push({
+                id: `bitlabs_${offer.id}`,
+                name: offer.name,
+                company: "Bitlabs",
+                category: "surveys",
+                pay: `£${offer.value.toFixed(2)}`,
+                time: `${offer.duration} min`,
+                location: "Remote",
+                emoji: "📋",
+                bg: "#EFF6FF",
+                tag: "Survey",
+                tagColor: "#DBEAFE",
+                tagText: "#1D4ED8",
+                desc: "Complete this survey to earn rewards.",
+                requirements: ["UK resident", "18+"],
+                url: offer.click_url,
+                isLive: true,
+              });
+            });
+          }
+        } catch (e) { console.log("Bitlabs fetch failed:", e); }
+      }
+
+      if (jobs.length > 0) setApiTasks(jobs);
+      setApiLoading(false);
+    };
+
+    fetchApiJobs();
+    // Refresh every 10 minutes
+    const interval = setInterval(fetchApiJobs, 10 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const showToast = (msg) => {
     setToast(msg);
@@ -1226,9 +1357,12 @@ export default function GigNest() {
     showToast("Applied! £" + pay.toFixed(2) + " pending");
   };
 
+  // Merge real API jobs with demo jobs
+  const allTasks = apiTasks.length > 0 ? [...apiTasks, ...TASKS] : TASKS;
+
   const filteredTasks = cat === "all"
-    ? TASKS
-    : TASKS.filter(t => {
+    ? allTasks
+    : allTasks.filter(t => {
         const group = CAT_GROUPS[cat];
         return group ? group.includes(t.category) : t.category === cat;
       });
@@ -1371,10 +1505,10 @@ export default function GigNest() {
   }
 
   const TaskCard = ({task}) => (
-    <div className="task-card" onClick={() => setSelectedTask(task)}>
+    <div className="task-card" onClick={() => task.url ? window.open(task.url, '_blank') : setSelectedTask(task)}>
       <div className="task-emoji" style={{background:task.bg}}>{task.emoji}</div>
       <div className="task-info">
-        <div className="task-company">{task.company}</div>
+        <div className="task-company">{task.company}{task.isLive && " • LIVE"}</div>
         <div className="task-name">{task.name}</div>
         <div className="task-meta">
           <div className="task-chip">⏱ {task.time}</div>
@@ -1384,8 +1518,9 @@ export default function GigNest() {
       </div>
       <div className="task-right">
         <div className="task-pay">{task.pay}</div>
-        {task.isNew && <div className="badge-new">New</div>}
-        {task.isHot && !task.isNew && <div className="badge-hot">Hot</div>}
+        {task.isLive && <div className="badge-new">Live</div>}
+        {task.isNew && !task.isLive && <div className="badge-new">New</div>}
+        {task.isHot && !task.isNew && !task.isLive && <div className="badge-hot">Hot</div>}
       </div>
     </div>
   );
@@ -1419,7 +1554,7 @@ export default function GigNest() {
         <div className="wallet-bottom">
           <div className="wallet-stats">
             <div><div className="wallet-stat-val">{completed}</div><div className="wallet-stat-lbl">Done</div></div>
-            <div><div className="wallet-stat-val">{TASKS.length}</div><div className="wallet-stat-lbl">Available</div></div>
+            <div><div className="wallet-stat-val">{allTasks.length}</div><div className="wallet-stat-lbl">Available</div></div>
           </div>
           <button className="wallet-withdraw" onClick={() => setShowPayout(true)}>Withdraw →</button>
         </div>
@@ -1451,7 +1586,7 @@ export default function GigNest() {
           <div key={c.id} className={"cat-card"+(cat===c.id?" active":"")} onClick={() => setCat(c.id)}>
             <div className="cat-emoji">{c.emoji}</div>
             <div className="cat-name">{c.name}</div>
-            <div className="cat-count">{c.id==="all" ? TASKS.length : TASKS.filter(t=>t.category===c.id).length} jobs</div>
+            <div className="cat-count">{c.id==="all" ? allTasks.length : allTasks.filter(t=>t.category===c.id).length} jobs</div>
           </div>
         ))}
       </div>
@@ -1476,7 +1611,7 @@ export default function GigNest() {
           <div key={c.id} className={"cat-card"+(cat===c.id?" active":"")} onClick={() => setCat(c.id)}>
             <div className="cat-emoji">{c.emoji}</div>
             <div className="cat-name">{c.name}</div>
-            <div className="cat-count">{c.id==="all" ? TASKS.length : TASKS.filter(t=>t.category===c.id).length}</div>
+            <div className="cat-count">{c.id==="all" ? allTasks.length : allTasks.filter(t=>t.category===c.id).length}</div>
           </div>
         ))}
       </div>

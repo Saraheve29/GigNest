@@ -1,20 +1,11 @@
-const CACHE_NAME = 'gignest-v3';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/fox-mascot.jpg',
-];
-
-self.addEventListener('install', event => {
+self.addEventListener('install', () => self.skipWaiting());
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.keys().then(keys =>
+      Promise.all(keys.map(key => caches.delete(key)))
+    )
   );
 });
-
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
+  event.respondWith(fetch(event.request));
 });

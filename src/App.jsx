@@ -618,6 +618,12 @@ const styles = `
     .cat-scroll {
       flex-wrap: wrap;
       overflow-x: visible;
+      overflow: visible;
+    }
+    .cat-card {
+      flex: 1 1 100px;
+      min-width: 100px;
+      max-width: 130px;
     }
   }
 

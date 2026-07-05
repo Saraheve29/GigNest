@@ -629,10 +629,10 @@ const styles = `
 
   .cat-card {
     flex-shrink: 0;
-    min-width: 100px;
+    min-width: 110px;
     background: white;
     border-radius: 16px;
-    padding: 14px 12px;
+    padding: 16px 14px;
     cursor: pointer;
     border: 2px solid #F0E8E0;
     text-align: center;
@@ -645,20 +645,20 @@ const styles = `
   }
 
   .cat-emoji {
-    font-size: 24px;
-    margin-bottom: 6px;
+    font-size: 28px;
+    margin-bottom: 8px;
   }
 
   .cat-name {
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 700;
     color: #1A1A1A;
     line-height: 1.2;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
   }
 
   .cat-count {
-    font-size: 9px;
+    font-size: 11px;
     color: #C4A090;
   }
 

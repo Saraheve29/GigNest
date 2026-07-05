@@ -14,13 +14,49 @@ const styles = `
 
   .app {
     width: 100%;
-    max-width: 430px;
     min-height: 100vh;
-    margin: 0 auto;
     background: linear-gradient(175deg, #FFE8D6 0%, #FFD9C2 40%, #FFE4D0 70%, #FFF0E6 100%);
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
+  }
+
+  .main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(175deg, #FFF5EF 0%, #FFFAF6 50%, #FFF0E8 100%);
+  }
+
+  .topbar {
+    background: #FFF5EE;
+    padding: 16px 24px 0;
+    border-bottom: 1px solid #FFE0C8;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(232,132,74,0.08);
+  }
+
+  .content {
+    flex: 1;
+    padding: 20px 24px 88px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #FFF5EE;
+    border-top: 1px solid #FFE0C8;
+    display: flex;
+    padding: 10px 0 18px;
+    z-index: 200;
+    box-shadow: 0 -2px 16px rgba(232,132,74,0.1);
   }
 
   .temp-btn {
@@ -225,14 +261,6 @@ const styles = `
 
   .auth-switch span { color: #E8844A; font-weight: 700; cursor: pointer; }
 
-  /* MAIN APP */
-  .main {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(175deg, #FFF5EF 0%, #FFFAF6 50%, #FFF0E8 100%);
-  }
-
   /* TOPBAR */
   .topbar {
     background: #FFF5EE;
@@ -329,22 +357,6 @@ const styles = `
     cursor: pointer;
   }
 
-  /* BOTTOM NAV */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 430px;
-    background: #FFF5EE;
-    border-top: 1px solid #FFE0C8;
-    display: flex;
-    padding: 10px 0 18px;
-    z-index: 200;
-    box-shadow: 0 -2px 16px rgba(232,132,74,0.1);
-  }
-
   .nav-item {
     flex: 1;
     display: flex;
@@ -360,12 +372,6 @@ const styles = `
   .nav-icon { font-size: 20px; }
   .nav-label { font-size: 9px; font-weight: 700; color: #CCC; text-transform: uppercase; letter-spacing: 0.3px; }
   .nav-item.active .nav-label { color: #E8844A; }
-
-  /* CONTENT */
-  .content {
-    flex: 1;
-    padding: 20px 16px 88px;
-  }
 
   /* WALLET CARD */
   .wallet-card {
@@ -938,6 +944,14 @@ const styles = `
   /* STATS */
   .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
 
+  @media (min-width: 600px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    .task-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .featured-card { width: 260px; }
+    .wallet-card { max-width: 600px; }
+    .wallet-page-card { max-width: 600px; }
+  }
+
   .stat-box {
     background: white;
     border-radius: 16px;
@@ -1066,49 +1080,49 @@ const CATEGORIES = [
 ];
 
 const TASKS = [
-  { id:1, name:"Consumer opinions on fast food brands", company:"YouGov UK", category:"surveys", pay:"\u00a31.20", time:"5 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Share your opinions on major fast food brands in the UK. Simple multiple choice questions.", requirements:["UK resident","18+ years old","10 mins free time"], isNew:true },
-  { id:2, name:"Mobile phone usage diary study", company:"Kantar Research", category:"surveys", pay:"\u00a34.50", time:"20 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Complete a detailed diary about your mobile phone usage over 7 days.", requirements:["Smartphone owner","UK resident","7 days availability"] },
-  { id:3, name:"Weekly grocery shopping habits", company:"Ipsos MORI", category:"surveys", pay:"\u00a32.00", time:"8 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Tell us about your weekly shopping habits, which supermarkets you use and why.", requirements:["UK resident","Does own grocery shopping"], isNew:true },
-  { id:4, name:"Health & wellbeing survey 2025", company:"Savanta Research", category:"surveys", pay:"\u00a33.00", time:"15 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Annual UK health and wellbeing study covering diet, exercise and mental health.", requirements:["18+ years","UK resident"] },
-  { id:5, name:"TV streaming preferences study", company:"GfK Research", category:"surveys", pay:"\u00a32.50", time:"10 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Which streaming services do you use? How much do you spend?", requirements:["Streaming service user","18+"], isNew:true },
-  { id:6, name:"New product taste test — snacks", company:"Unilever Research", category:"surveys", pay:"\u00a38.00", time:"30 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Receive snack samples by post, try them and complete an online feedback form.", requirements:["UK address","No food allergies","18+"], isNew:true, isHot:true },
-  { id:7, name:"AI image labelling — 50 images", company:"Toloka AI", category:"tasks", pay:"\u00a32.50", time:"10 min", location:"Remote", emoji:"✅", bg:"#F0FDF4", tag:"Task", tagColor:"#DCFCE7", tagText:"#166534", desc:"Label and categorise 50 AI training images. Simple drag and drop interface.", requirements:["Good attention to detail","Reliable internet","PC or tablet recommended"] },
-  { id:8, name:"Website usability test", company:"UserTesting UK", category:"tasks", pay:"\u00a39.00", time:"15 min", location:"Remote", emoji:"✅", bg:"#F0FDF4", tag:"Task", tagColor:"#DCFCE7", tagText:"#166534", desc:"Test a real website and share your thoughts out loud as you browse.", requirements:["Microphone access","Modern browser","Quiet space"], isNew:true, isHot:true },
-  { id:9, name:"Transcribe a 3-minute podcast clip", company:"Clickworker", category:"tasks", pay:"\u00a31.80", time:"8 min", location:"Remote", emoji:"✅", bg:"#F0FDF4", tag:"Task", tagColor:"#DCFCE7", tagText:"#166534", desc:"Listen to a short podcast segment and type out exactly what is said.", requirements:["Good English spelling","Headphones recommended"] },
-  { id:10, name:"App testing — report bugs", company:"Testbirds UK", category:"tasks", pay:"\u00a312.00", time:"45 min", location:"Remote", emoji:"✅", bg:"#F0FDF4", tag:"Task", tagColor:"#DCFCE7", tagText:"#166534", desc:"Test a new mobile app before launch and report any bugs or issues you find.", requirements:["Smartphone iOS or Android","Good eye for detail"], isNew:true },
-  { id:11, name:"Stock level audit at Boots", company:"Gigwalk UK", category:"gigs", pay:"\u00a38.00", time:"30 min", location:"March, Cambs", emoji:"📍", bg:"#FAF5FF", tag:"Gig", tagColor:"#F3E8FF", tagText:"#7E22CE", desc:"Visit your local Boots and check stock levels of 10 specified products. Take photos and submit via app.", requirements:["Smartphone with camera","Near a Boots store","Reliable"] },
-  { id:12, name:"Check price labels at Tesco Express", company:"Premise UK", category:"gigs", pay:"\u00a36.50", time:"20 min", location:"Nationwide", emoji:"📍", bg:"#FAF5FF", tag:"Gig", tagColor:"#F3E8FF", tagText:"#7E22CE", desc:"Visit a Tesco Express near you and check that shelf price labels match products.", requirements:["Near a Tesco Express","Smartphone camera"], isNew:true },
-  { id:13, name:"McDonald's menu board photo audit", company:"Roamler UK", category:"gigs", pay:"\u00a37.00", time:"25 min", location:"Nationwide", emoji:"📍", bg:"#FAF5FF", tag:"Gig", tagColor:"#F3E8FF", tagText:"#7E22CE", desc:"Visit your nearest McDonald's and photograph the menu boards to check pricing accuracy.", requirements:["Smartphone","Near a McDonald's","GPS must be enabled"], isNew:true },
-  { id:14, name:"EV charging point condition check", company:"Field Agent", category:"gigs", pay:"\u00a39.00", time:"20 min", location:"Peterborough", emoji:"📍", bg:"#FAF5FF", tag:"Gig", tagColor:"#F3E8FF", tagText:"#7E22CE", desc:"Visit an EV charging station and check that it is working, clean and correctly signposted.", requirements:["Can visit Peterborough","Smartphone","Attention to detail"], isNew:true, isHot:true },
-  { id:15, name:"Dine & review — Costa Coffee", company:"Ipsos Mystery", category:"mystery", pay:"\u00a315.00", time:"45 min", location:"Nationwide", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Visit Costa Coffee as a mystery shopper. Order a drink, assess cleanliness and service.", requirements:["18+ years","Good written English","Smartphone for photos"], isHot:true },
-  { id:16, name:"Fine dining mystery shop", company:"Market Force", category:"mystery", pay:"\u00a335.00", time:"2 hrs", location:"Cambridge", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Dine at a premium restaurant as a mystery guest. Full meal reimbursed up to \u00a360.", requirements:["Smart dress code","Excellent writing skills","18+"], isHot:true },
-  { id:17, name:"Bank branch service assessment", company:"Retail Eyes", category:"mystery", pay:"\u00a320.00", time:"1 hr", location:"Peterborough", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Visit a high street bank branch, make a simple enquiry and rate the quality of service.", requirements:["18+","Not a current employee of this bank"], isNew:true },
-  { id:18, name:"Hotel lobby mystery visit", company:"GfK Mystery", category:"mystery", pay:"\u00a345.00", time:"2 hrs", location:"Cambridge", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Check into a hotel as a mystery guest. Assess check-in, room quality and staff behaviour.", requirements:["Professional presentation","Detailed report writing","18+"], isNew:true, isHot:true },
-  { id:19, name:"Car dealership experience visit", company:"Mobee UK", category:"mystery", pay:"\u00a330.00", time:"1.5 hrs", location:"Peterborough", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Visit a car dealership and enquire about purchasing a vehicle.", requirements:["Driving licence","18+","Convincing buyer persona"], isNew:true },
-  { id:20, name:"Brand ambassador — Asda sampling", company:"Fluid Retail", category:"promo", pay:"\u00a311.00", time:"4 hrs", location:"Peterborough", emoji:"🎪", bg:"#FFFBEB", tag:"Promo", tagColor:"#FEF3C7", tagText:"#92400E", desc:"Hand out product samples to shoppers in Asda. Friendly and approachable personality required.", requirements:["Confident communicator","Able to stand 4 hours","Smart casual dress"], isNew:true },
-  { id:21, name:"Drinks promotion — Tesco event", company:"REL Field Marketing", category:"promo", pay:"\u00a312.00", time:"6 hrs", location:"Cambridge", emoji:"🎪", bg:"#FFFBEB", tag:"Promo", tagColor:"#FEF3C7", tagText:"#92400E", desc:"Promote a new soft drink range in Tesco. Engage shoppers and hand out samples.", requirements:["Energetic personality","Sales experience helpful"] },
-  { id:22, name:"Festival staff — Ely Folk Festival", company:"Evolent Staffing", category:"promo", pay:"\u00a313.00", time:"8 hrs", location:"Ely, Cambs", emoji:"🎪", bg:"#FFFBEB", tag:"Promo", tagColor:"#FEF3C7", tagText:"#92400E", desc:"Event staff needed for Ely Folk Festival. Roles include ticketing and guest services.", requirements:["18+","Customer service experience","Able to work weekends"], isNew:true, isHot:true },
-  { id:23, name:"Warehouse operative — Amazon", company:"Indeed Flex", category:"shifts", pay:"\u00a311.44", time:"8 hrs", location:"Peterborough", emoji:"🏗️", bg:"#F0FDF4", tag:"Shift", tagColor:"#DCFCE7", tagText:"#166534", desc:"Pick and pack shifts at Amazon fulfilment centre. Full training provided. Weekly pay.", requirements:["18+ years","Steel toe cap boots","Able to lift 15kg"], isHot:true },
-  { id:24, name:"Hospitality staff — hotel", company:"Syft", category:"shifts", pay:"\u00a312.50", time:"8 hrs", location:"Ely, Cambs", emoji:"🏗️", bg:"#F0FDF4", tag:"Shift", tagColor:"#DCFCE7", tagText:"#166534", desc:"Front of house and housekeeping staff at a 4-star hotel. Day and evening shifts.", requirements:["Customer service experience","Smart appearance","Reliable"], isNew:true },
-  { id:25, name:"Delivery driver — next day parcels", company:"Amazon Flex", category:"shifts", pay:"\u00a315.00", time:"4 hrs", location:"Peterborough", emoji:"🏗️", bg:"#F0FDF4", tag:"Shift", tagColor:"#DCFCE7", tagText:"#166534", desc:"Deliver parcels to homes in your area using your own vehicle. Flexible blocks available.", requirements:["Full UK driving licence","Own vehicle","Smartphone"], isHot:true },
-  { id:26, name:"Dog walking — 2 golden retrievers", company:"Rover UK", category:"petsitting", pay:"\u00a312.00", time:"1 hr", location:"March, Cambs", emoji:"🐶", bg:"#FFF7ED", tag:"Pet", tagColor:"#FFEDD5", tagText:"#9A3412", desc:"Walk two friendly golden retrievers around March town centre. Leads and bags provided.", requirements:["Dog experience","Physically active","DBS check required"], isNew:true },
-  { id:27, name:"Cat sitting — 5 days home visits", company:"Pawshake UK", category:"petsitting", pay:"\u00a335.00", time:"5 days", location:"Ely, Cambs", emoji:"🐶", bg:"#FFF7ED", tag:"Pet", tagColor:"#FFEDD5", tagText:"#9A3412", desc:"Visit a home twice daily to feed and care for two cats while owner is on holiday.", requirements:["Cat experience","Reliable","Own transport helpful"] },
-  { id:28, name:"Puppy sitting — 3 days", company:"Rover UK", category:"petsitting", pay:"\u00a345.00", time:"3 days", location:"March, Cambs", emoji:"🐶", bg:"#FFF7ED", tag:"Pet", tagColor:"#FFEDD5", tagText:"#9A3412", desc:"Look after an 8-month Labrador puppy for 3 days while owner travels.", requirements:["Dog owner experience","Garden preferred","18+"], isNew:true, isHot:true },
-  { id:29, name:"Weekend house sit — Ely", company:"TrustedHousesitters", category:"housesitting", pay:"\u00a340.00", time:"Weekend", location:"Ely, Cambs", emoji:"🏡", bg:"#F0F9FF", tag:"House", tagColor:"#E0F2FE", tagText:"#075985", desc:"Look after a 3-bed house and one cat in Ely while owners are away.", requirements:["References required","Non-smoker","Cat friendly"] },
-  { id:30, name:"One week house sit — Cambridge", company:"HouseCarers UK", category:"housesitting", pay:"\u00a3120.00", time:"7 days", location:"Cambridge", emoji:"🏡", bg:"#F0F9FF", tag:"House", tagColor:"#E0F2FE", tagText:"#075985", desc:"Look after a large family home in Cambridge for one week. Water plants, care for guinea pigs.", requirements:["References","Non-smoker","Flexible dates"], isNew:true, isHot:true },
-  { id:31, name:"Deliveroo — evening delivery rider", company:"Deliveroo", category:"delivery", pay:"\u00a313.00", time:"3 hrs", location:"Cambridge", emoji:"🚗", bg:"#FEF9C3", tag:"Delivery", tagColor:"#FEF9C3", tagText:"#713F12", desc:"Flexible evening delivery shifts in Cambridge city centre. Bike or moped required.", requirements:["Bicycle or moped","Smartphone","18+ years"] },
-  { id:32, name:"Uber Eats — weekend mornings", company:"Uber Eats", category:"delivery", pay:"\u00a314.00", time:"4 hrs", location:"Peterborough", emoji:"🚗", bg:"#FEF9C3", tag:"Delivery", tagColor:"#FEF9C3", tagText:"#713F12", desc:"Weekend breakfast and brunch delivery shifts. Earn extra on top of base pay with tips.", requirements:["Vehicle or bicycle","18+","Smartphone"], isNew:true },
-  { id:33, name:"GCSE Maths tutor — online", company:"Tutorful", category:"tutoring", pay:"\u00a320.00", time:"1 hr", location:"Remote", emoji:"🎓", bg:"#FDF4FF", tag:"Tutor", tagColor:"#FAE8FF", tagText:"#6B21A8", desc:"Online GCSE maths tutoring via video call. Flexible hours, work from home.", requirements:["Maths qualification","DBS check","Reliable internet"], isNew:true },
-  { id:34, name:"Primary school reading support", company:"MyTutor", category:"tutoring", pay:"\u00a318.00", time:"1 hr", location:"Remote", emoji:"🎓", bg:"#FDF4FF", tag:"Tutor", tagColor:"#FAE8FF", tagText:"#6B21A8", desc:"Support primary aged children with reading and comprehension skills via video call.", requirements:["Teaching or childcare experience","DBS check","Webcam"] },
-  { id:35, name:"A-Level Biology tutoring", company:"Tutorful", category:"tutoring", pay:"\u00a328.00", time:"1 hr", location:"Remote", emoji:"🎓", bg:"#FDF4FF", tag:"Tutor", tagColor:"#FAE8FF", tagText:"#6B21A8", desc:"A-Level Biology exam preparation tutoring via video call.", requirements:["Biology degree or equivalent","DBS check","Exam board knowledge"], isHot:true },
+  { id:1, name:"Consumer opinions on fast food brands", company:"YouGov UK", category:"surveys", pay:"£1.20", time:"5 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Share your opinions on major fast food brands in the UK. Simple multiple choice questions.", requirements:["UK resident","18+ years old","10 mins free time"], isNew:true },
+  { id:2, name:"Mobile phone usage diary study", company:"Kantar Research", category:"surveys", pay:"£4.50", time:"20 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Complete a detailed diary about your mobile phone usage over 7 days.", requirements:["Smartphone owner","UK resident","7 days availability"] },
+  { id:3, name:"Weekly grocery shopping habits", company:"Ipsos MORI", category:"surveys", pay:"£2.00", time:"8 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Tell us about your weekly shopping habits, which supermarkets you use and why.", requirements:["UK resident","Does own grocery shopping"], isNew:true },
+  { id:4, name:"Health & wellbeing survey 2025", company:"Savanta Research", category:"surveys", pay:"£3.00", time:"15 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Annual UK health and wellbeing study covering diet, exercise and mental health.", requirements:["18+ years","UK resident"] },
+  { id:5, name:"TV streaming preferences study", company:"GfK Research", category:"surveys", pay:"£2.50", time:"10 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Which streaming services do you use? How much do you spend?", requirements:["Streaming service user","18+"], isNew:true },
+  { id:6, name:"New product taste test — snacks", company:"Unilever Research", category:"surveys", pay:"£8.00", time:"30 min", location:"Remote", emoji:"📋", bg:"#EFF6FF", tag:"Survey", tagColor:"#DBEAFE", tagText:"#1D4ED8", desc:"Receive snack samples by post, try them and complete an online feedback form.", requirements:["UK address","No food allergies","18+"], isNew:true, isHot:true },
+  { id:7, name:"AI image labelling — 50 images", company:"Toloka AI", category:"tasks", pay:"£2.50", time:"10 min", location:"Remote", emoji:"✅", bg:"#F0FDF4", tag:"Task", tagColor:"#DCFCE7", tagText:"#166534", desc:"Label and categorise 50 AI training images. Simple drag and drop interface.", requirements:["Good attention to detail","Reliable internet","PC or tablet recommended"] },
+  { id:8, name:"Website usability test", company:"UserTesting UK", category:"tasks", pay:"£9.00", time:"15 min", location:"Remote", emoji:"✅", bg:"#F0FDF4", tag:"Task", tagColor:"#DCFCE7", tagText:"#166534", desc:"Test a real website and share your thoughts out loud as you browse.", requirements:["Microphone access","Modern browser","Quiet space"], isNew:true, isHot:true },
+  { id:9, name:"Transcribe a 3-minute podcast clip", company:"Clickworker", category:"tasks", pay:"£1.80", time:"8 min", location:"Remote", emoji:"✅", bg:"#F0FDF4", tag:"Task", tagColor:"#DCFCE7", tagText:"#166534", desc:"Listen to a short podcast segment and type out exactly what is said.", requirements:["Good English spelling","Headphones recommended"] },
+  { id:10, name:"App testing — report bugs", company:"Testbirds UK", category:"tasks", pay:"£12.00", time:"45 min", location:"Remote", emoji:"✅", bg:"#F0FDF4", tag:"Task", tagColor:"#DCFCE7", tagText:"#166534", desc:"Test a new mobile app before launch and report any bugs or issues you find.", requirements:["Smartphone iOS or Android","Good eye for detail"], isNew:true },
+  { id:11, name:"Stock level audit at Boots", company:"Gigwalk UK", category:"gigs", pay:"£8.00", time:"30 min", location:"March, Cambs", emoji:"📍", bg:"#FAF5FF", tag:"Gig", tagColor:"#F3E8FF", tagText:"#7E22CE", desc:"Visit your local Boots and check stock levels of 10 specified products. Take photos and submit via app.", requirements:["Smartphone with camera","Near a Boots store","Reliable"] },
+  { id:12, name:"Check price labels at Tesco Express", company:"Premise UK", category:"gigs", pay:"£6.50", time:"20 min", location:"Nationwide", emoji:"📍", bg:"#FAF5FF", tag:"Gig", tagColor:"#F3E8FF", tagText:"#7E22CE", desc:"Visit a Tesco Express near you and check that shelf price labels match products.", requirements:["Near a Tesco Express","Smartphone camera"], isNew:true },
+  { id:13, name:"McDonald's menu board photo audit", company:"Roamler UK", category:"gigs", pay:"£7.00", time:"25 min", location:"Nationwide", emoji:"📍", bg:"#FAF5FF", tag:"Gig", tagColor:"#F3E8FF", tagText:"#7E22CE", desc:"Visit your nearest McDonald's and photograph the menu boards to check pricing accuracy.", requirements:["Smartphone","Near a McDonald's","GPS must be enabled"], isNew:true },
+  { id:14, name:"EV charging point condition check", company:"Field Agent", category:"gigs", pay:"£9.00", time:"20 min", location:"Peterborough", emoji:"📍", bg:"#FAF5FF", tag:"Gig", tagColor:"#F3E8FF", tagText:"#7E22CE", desc:"Visit an EV charging station and check that it is working, clean and correctly signposted.", requirements:["Can visit Peterborough","Smartphone","Attention to detail"], isNew:true, isHot:true },
+  { id:15, name:"Dine & review — Costa Coffee", company:"Ipsos Mystery", category:"mystery", pay:"£15.00", time:"45 min", location:"Nationwide", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Visit Costa Coffee as a mystery shopper. Order a drink, assess cleanliness and service.", requirements:["18+ years","Good written English","Smartphone for photos"], isHot:true },
+  { id:16, name:"Fine dining mystery shop", company:"Market Force", category:"mystery", pay:"£35.00", time:"2 hrs", location:"Cambridge", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Dine at a premium restaurant as a mystery guest. Full meal reimbursed up to £60.", requirements:["Smart dress code","Excellent writing skills","18+"], isHot:true },
+  { id:17, name:"Bank branch service assessment", company:"Retail Eyes", category:"mystery", pay:"£20.00", time:"1 hr", location:"Peterborough", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Visit a high street bank branch, make a simple enquiry and rate the quality of service.", requirements:["18+","Not a current employee of this bank"], isNew:true },
+  { id:18, name:"Hotel lobby mystery visit", company:"GfK Mystery", category:"mystery", pay:"£45.00", time:"2 hrs", location:"Cambridge", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Check into a hotel as a mystery guest. Assess check-in, room quality and staff behaviour.", requirements:["Professional presentation","Detailed report writing","18+"], isNew:true, isHot:true },
+  { id:19, name:"Car dealership experience visit", company:"Mobee UK", category:"mystery", pay:"£30.00", time:"1.5 hrs", location:"Peterborough", emoji:"🛍️", bg:"#FDF2F8", tag:"Mystery", tagColor:"#FCE7F3", tagText:"#9D174D", desc:"Visit a car dealership and enquire about purchasing a vehicle.", requirements:["Driving licence","18+","Convincing buyer persona"], isNew:true },
+  { id:20, name:"Brand ambassador — Asda sampling", company:"Fluid Retail", category:"promo", pay:"£11.00", time:"4 hrs", location:"Peterborough", emoji:"🎪", bg:"#FFFBEB", tag:"Promo", tagColor:"#FEF3C7", tagText:"#92400E", desc:"Hand out product samples to shoppers in Asda. Friendly and approachable personality required.", requirements:["Confident communicator","Able to stand 4 hours","Smart casual dress"], isNew:true },
+  { id:21, name:"Drinks promotion — Tesco event", company:"REL Field Marketing", category:"promo", pay:"£12.00", time:"6 hrs", location:"Cambridge", emoji:"🎪", bg:"#FFFBEB", tag:"Promo", tagColor:"#FEF3C7", tagText:"#92400E", desc:"Promote a new soft drink range in Tesco. Engage shoppers and hand out samples.", requirements:["Energetic personality","Sales experience helpful"] },
+  { id:22, name:"Festival staff — Ely Folk Festival", company:"Evolent Staffing", category:"promo", pay:"£13.00", time:"8 hrs", location:"Ely, Cambs", emoji:"🎪", bg:"#FFFBEB", tag:"Promo", tagColor:"#FEF3C7", tagText:"#92400E", desc:"Event staff needed for Ely Folk Festival. Roles include ticketing and guest services.", requirements:["18+","Customer service experience","Able to work weekends"], isNew:true, isHot:true },
+  { id:23, name:"Warehouse operative — Amazon", company:"Indeed Flex", category:"shifts", pay:"£11.44", time:"8 hrs", location:"Peterborough", emoji:"🏗️", bg:"#F0FDF4", tag:"Shift", tagColor:"#DCFCE7", tagText:"#166534", desc:"Pick and pack shifts at Amazon fulfilment centre. Full training provided. Weekly pay.", requirements:["18+ years","Steel toe cap boots","Able to lift 15kg"], isHot:true },
+  { id:24, name:"Hospitality staff — hotel", company:"Syft", category:"shifts", pay:"£12.50", time:"8 hrs", location:"Ely, Cambs", emoji:"🏗️", bg:"#F0FDF4", tag:"Shift", tagColor:"#DCFCE7", tagText:"#166534", desc:"Front of house and housekeeping staff at a 4-star hotel. Day and evening shifts.", requirements:["Customer service experience","Smart appearance","Reliable"], isNew:true },
+  { id:25, name:"Delivery driver — next day parcels", company:"Amazon Flex", category:"shifts", pay:"£15.00", time:"4 hrs", location:"Peterborough", emoji:"🏗️", bg:"#F0FDF4", tag:"Shift", tagColor:"#DCFCE7", tagText:"#166534", desc:"Deliver parcels to homes in your area using your own vehicle. Flexible blocks available.", requirements:["Full UK driving licence","Own vehicle","Smartphone"], isHot:true },
+  { id:26, name:"Dog walking — 2 golden retrievers", company:"Rover UK", category:"petsitting", pay:"£12.00", time:"1 hr", location:"March, Cambs", emoji:"🐶", bg:"#FFF7ED", tag:"Pet", tagColor:"#FFEDD5", tagText:"#9A3412", desc:"Walk two friendly golden retrievers around March town centre. Leads and bags provided.", requirements:["Dog experience","Physically active","DBS check required"], isNew:true },
+  { id:27, name:"Cat sitting — 5 days home visits", company:"Pawshake UK", category:"petsitting", pay:"£35.00", time:"5 days", location:"Ely, Cambs", emoji:"🐶", bg:"#FFF7ED", tag:"Pet", tagColor:"#FFEDD5", tagText:"#9A3412", desc:"Visit a home twice daily to feed and care for two cats while owner is on holiday.", requirements:["Cat experience","Reliable","Own transport helpful"] },
+  { id:28, name:"Puppy sitting — 3 days", company:"Rover UK", category:"petsitting", pay:"£45.00", time:"3 days", location:"March, Cambs", emoji:"🐶", bg:"#FFF7ED", tag:"Pet", tagColor:"#FFEDD5", tagText:"#9A3412", desc:"Look after an 8-month Labrador puppy for 3 days while owner travels.", requirements:["Dog owner experience","Garden preferred","18+"], isNew:true, isHot:true },
+  { id:29, name:"Weekend house sit — Ely", company:"TrustedHousesitters", category:"housesitting", pay:"£40.00", time:"Weekend", location:"Ely, Cambs", emoji:"🏡", bg:"#F0F9FF", tag:"House", tagColor:"#E0F2FE", tagText:"#075985", desc:"Look after a 3-bed house and one cat in Ely while owners are away.", requirements:["References required","Non-smoker","Cat friendly"] },
+  { id:30, name:"One week house sit — Cambridge", company:"HouseCarers UK", category:"housesitting", pay:"£120.00", time:"7 days", location:"Cambridge", emoji:"🏡", bg:"#F0F9FF", tag:"House", tagColor:"#E0F2FE", tagText:"#075985", desc:"Look after a large family home in Cambridge for one week. Water plants, care for guinea pigs.", requirements:["References","Non-smoker","Flexible dates"], isNew:true, isHot:true },
+  { id:31, name:"Deliveroo — evening delivery rider", company:"Deliveroo", category:"delivery", pay:"£13.00", time:"3 hrs", location:"Cambridge", emoji:"🚗", bg:"#FEF9C3", tag:"Delivery", tagColor:"#FEF9C3", tagText:"#713F12", desc:"Flexible evening delivery shifts in Cambridge city centre. Bike or moped required.", requirements:["Bicycle or moped","Smartphone","18+ years"] },
+  { id:32, name:"Uber Eats — weekend mornings", company:"Uber Eats", category:"delivery", pay:"£14.00", time:"4 hrs", location:"Peterborough", emoji:"🚗", bg:"#FEF9C3", tag:"Delivery", tagColor:"#FEF9C3", tagText:"#713F12", desc:"Weekend breakfast and brunch delivery shifts. Earn extra on top of base pay with tips.", requirements:["Vehicle or bicycle","18+","Smartphone"], isNew:true },
+  { id:33, name:"GCSE Maths tutor — online", company:"Tutorful", category:"tutoring", pay:"£20.00", time:"1 hr", location:"Remote", emoji:"🎓", bg:"#FDF4FF", tag:"Tutor", tagColor:"#FAE8FF", tagText:"#6B21A8", desc:"Online GCSE maths tutoring via video call. Flexible hours, work from home.", requirements:["Maths qualification","DBS check","Reliable internet"], isNew:true },
+  { id:34, name:"Primary school reading support", company:"MyTutor", category:"tutoring", pay:"£18.00", time:"1 hr", location:"Remote", emoji:"🎓", bg:"#FDF4FF", tag:"Tutor", tagColor:"#FAE8FF", tagText:"#6B21A8", desc:"Support primary aged children with reading and comprehension skills via video call.", requirements:["Teaching or childcare experience","DBS check","Webcam"] },
+  { id:35, name:"A-Level Biology tutoring", company:"Tutorful", category:"tutoring", pay:"£28.00", time:"1 hr", location:"Remote", emoji:"🎓", bg:"#FDF4FF", tag:"Tutor", tagColor:"#FAE8FF", tagText:"#6B21A8", desc:"A-Level Biology exam preparation tutoring via video call.", requirements:["Biology degree or equivalent","DBS check","Exam board knowledge"], isHot:true },
 ];
 
 const FEATURED = [
-  { id:1, name:"Hotel Mystery Stay", company:"GfK Mystery", pay:"\u00a345", bg:["#9B6FE8","#7C3AED"], tag:"Mystery Shopping", taskId:18 },
-  { id:2, name:"Amazon Warehouse Shift", company:"Indeed Flex", pay:"\u00a391.52", bg:["#3B82F6","#1D4ED8"], tag:"Day Shift", taskId:23 },
-  { id:3, name:"Cambridge House Sit", company:"HouseCarers UK", pay:"\u00a3120", bg:["#E8519A","#BE185D"], tag:"House Sitting", taskId:30 },
-  { id:4, name:"Ely Folk Festival Staff", company:"Evolent Staffing", pay:"\u00a3104", bg:["#F4843A","#C2410C"], tag:"Promo Shift", taskId:22 },
-  { id:5, name:"Website Usability Test", company:"UserTesting UK", pay:"\u00a39", bg:["#22C55E","#15803D"], tag:"Remote Task", taskId:8 },
+  { id:1, name:"Hotel Mystery Stay", company:"GfK Mystery", pay:"£45", bg:["#9B6FE8","#7C3AED"], tag:"Mystery Shopping", taskId:18 },
+  { id:2, name:"Amazon Warehouse Shift", company:"Indeed Flex", pay:"£91.52", bg:["#3B82F6","#1D4ED8"], tag:"Day Shift", taskId:23 },
+  { id:3, name:"Cambridge House Sit", company:"HouseCarers UK", pay:"£120", bg:["#E8519A","#BE185D"], tag:"House Sitting", taskId:30 },
+  { id:4, name:"Ely Folk Festival Staff", company:"Evolent Staffing", pay:"£104", bg:["#F4843A","#C2410C"], tag:"Promo Shift", taskId:22 },
+  { id:5, name:"Website Usability Test", company:"UserTesting UK", pay:"£9", bg:["#22C55E","#15803D"], tag:"Remote Task", taskId:8 },
 ];
 
 const CAT_GROUPS = {
@@ -1163,11 +1177,11 @@ export default function GigNest() {
   const handleApply = (task) => {
     if (appliedTasks.includes(task.id)) { showToast("Already applied!"); return; }
     setAppliedTasks(prev => [...prev, task.id]);
-    const pay = parseFloat(task.pay.replace("\u00a3","").replace("/hr",""));
+    const pay = parseFloat(task.pay.replace("£","").replace("/hr",""));
     setBalance(b => Math.round((b + pay) * 100) / 100);
     setCompleted(c => c + 1);
     setSelectedTask(null);
-    showToast("Applied! \u00a3" + pay.toFixed(2) + " pending");
+    showToast("Applied! £" + pay.toFixed(2) + " pending");
   };
 
   const filteredTasks = cat === "all"
@@ -1352,13 +1366,13 @@ export default function GigNest() {
           <div className="wallet-label">Available Balance</div>
           <div className="wallet-badge">🥉 Bronze</div>
         </div>
-        <div className="wallet-amount">\u00a3{balance.toFixed(2)}</div>
+        <div className="wallet-amount">£{balance.toFixed(2)}</div>
         <div className="wallet-progress">
           <div className="wallet-progress-fill" style={{width: Math.min((balance/50)*100,100)+"%"}} />
         </div>
         <div className="wallet-progress-label">
           <span>Bronze</span>
-          <span>\u00a3{(50-balance).toFixed(2)} to Silver 🥈</span>
+          <span>£{(50-balance).toFixed(2)} to Silver 🥈</span>
         </div>
         <div className="wallet-bottom">
           <div className="wallet-stats">
@@ -1439,27 +1453,27 @@ export default function GigNest() {
           <div className="wallet-label">Available Balance</div>
           <div className="wallet-badge">🥉 Bronze</div>
         </div>
-        <div className="wallet-amount">\u00a3{balance.toFixed(2)}</div>
+        <div className="wallet-amount">£{balance.toFixed(2)}</div>
         <div className="wallet-progress">
           <div className="wallet-progress-fill" style={{width:Math.min((balance/50)*100,100)+"%"}} />
         </div>
         <div className="wallet-progress-label">
           <span>Bronze</span>
-          <span>\u00a3{(50-balance).toFixed(2)} to Silver 🥈</span>
+          <span>£{(50-balance).toFixed(2)} to Silver 🥈</span>
         </div>
         <div className="wallet-bottom">
           <div className="wallet-stats">
-            <div><div className="wallet-stat-val">\u00a3{(balance*1.8).toFixed(2)}</div><div className="wallet-stat-lbl">Total Earned</div></div>
-            <div><div className="wallet-stat-val">\u00a3{(balance*0.8).toFixed(2)}</div><div className="wallet-stat-lbl">Withdrawn</div></div>
+            <div><div className="wallet-stat-val">£{(balance*1.8).toFixed(2)}</div><div className="wallet-stat-lbl">Total Earned</div></div>
+            <div><div className="wallet-stat-val">£{(balance*0.8).toFixed(2)}</div><div className="wallet-stat-lbl">Withdrawn</div></div>
           </div>
           <button className="wallet-withdraw" onClick={() => setShowPayout(true)}>Withdraw →</button>
         </div>
       </div>
       <div className="stats-grid">
         <div className="stat-box"><div className="stat-val">{completed}</div><div className="stat-lbl">Tasks Done</div></div>
-        <div className="stat-box"><div className="stat-val">\u00a3{(balance/Math.max(completed,1)).toFixed(2)}</div><div className="stat-lbl">Avg Per Task</div></div>
+        <div className="stat-box"><div className="stat-val">£{(balance/Math.max(completed,1)).toFixed(2)}</div><div className="stat-lbl">Avg Per Task</div></div>
         <div className="stat-box"><div className="stat-val">🥉</div><div className="stat-lbl">Current Level</div></div>
-        <div className="stat-box"><div className="stat-val">\u00a310</div><div className="stat-lbl">Min Payout</div></div>
+        <div className="stat-box"><div className="stat-val">£10</div><div className="stat-lbl">Min Payout</div></div>
       </div>
     </div>
   );
@@ -1475,7 +1489,7 @@ export default function GigNest() {
         </div>
       </div>
       <div className="stats-grid">
-        <div className="stat-box"><div className="stat-val">\u00a3{balance.toFixed(2)}</div><div className="stat-lbl">Balance</div></div>
+        <div className="stat-box"><div className="stat-val">£{balance.toFixed(2)}</div><div className="stat-lbl">Balance</div></div>
         <div className="stat-box"><div className="stat-val">{completed}</div><div className="stat-lbl">Tasks Done</div></div>
       </div>
       <div className="profile-section">
@@ -1524,7 +1538,7 @@ export default function GigNest() {
                 Gig<span>N</span>est
               </div>
               <div className="topbar-right">
-                <div className="topbar-balance" onClick={() => setTab("wallet")}>💰 \u00a3{balance.toFixed(2)}</div>
+                <div className="topbar-balance" onClick={() => setTab("wallet")}>💰 £{balance.toFixed(2)}</div>
                 <div className="topbar-bell" onClick={() => showToast("No new notifications")}>🔔<div className="bell-dot"/></div>
                 <div className="topbar-avatar" onClick={() => setTab("profile")}>{userName[0]}</div>
               </div>
@@ -1551,7 +1565,7 @@ export default function GigNest() {
             <div className="modal" onClick={e => e.stopPropagation()}>
               <div className="modal-handle" />
               <div className="modal-title">Withdraw Funds</div>
-              <div className="modal-sub">Choose how to receive \u00a3{balance.toFixed(2)}</div>
+              <div className="modal-sub">Choose how to receive £{balance.toFixed(2)}</div>
               {[{id:"paypal",emoji:"💙",name:"PayPal",sub:"Usually instant"},{id:"bank",emoji:"🏦",name:"Bank Transfer",sub:"1–3 business days"},{id:"gift",emoji:"🎁",name:"Gift Cards",sub:"Amazon, Tesco & more"}].map(opt => (
                 <div key={opt.id} className={"payout-opt"+(payoutMethod===opt.id?" selected":"")} onClick={() => setPayoutMethod(opt.id)}>
                   <div className="payout-opt-icon">{opt.emoji}</div>

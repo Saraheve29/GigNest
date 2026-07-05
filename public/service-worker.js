@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gignest-v1';
+const CACHE_NAME = 'gignest-v3';
 const urlsToCache = [
   '/',
   '/index.html',

@@ -608,12 +608,18 @@ const styles = `
     gap: 10px;
     overflow-x: auto;
     scrollbar-width: none;
-    padding-bottom: 4px;
+    padding-bottom: 8px;
     margin-bottom: 22px;
-    flex-wrap: nowrap;
   }
 
   .cat-scroll::-webkit-scrollbar { display: none; }
+
+  @media (min-width: 600px) {
+    .cat-scroll {
+      flex-wrap: wrap;
+      overflow-x: visible;
+    }
+  }
 
   .cat-card {
     flex-shrink: 0;

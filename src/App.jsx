@@ -30,7 +30,7 @@ const styles = `
 
   .topbar {
     background: #FFF5EE;
-    padding: 16px 24px 0;
+    padding: 0;
     border-bottom: 1px solid #FFE0C8;
     position: sticky;
     top: 0;
@@ -38,12 +38,29 @@ const styles = `
     box-shadow: 0 2px 12px rgba(232,132,74,0.08);
   }
 
+  .topbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 40px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 600px) {
+    .topbar-inner { padding: 16px 16px 0; }
+  }
+
   .content {
     flex: 1;
-    padding: 20px 24px 88px;
-    max-width: 900px;
+    padding: 28px 40px 88px;
+    max-width: 1100px;
     margin: 0 auto;
     width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    .content { padding: 20px 16px 88px; }
+    .topbar { padding: 16px 16px 0; }
   }
 
   .bottom-nav {
@@ -54,9 +71,16 @@ const styles = `
     background: #FFF5EE;
     border-top: 1px solid #FFE0C8;
     display: flex;
+    justify-content: center;
     padding: 10px 0 18px;
     z-index: 200;
     box-shadow: 0 -2px 16px rgba(232,132,74,0.1);
+  }
+
+  .bottom-nav-inner {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
   }
 
   .temp-btn {
@@ -586,16 +610,17 @@ const styles = `
     scrollbar-width: none;
     padding-bottom: 4px;
     margin-bottom: 22px;
+    flex-wrap: nowrap;
   }
 
   .cat-scroll::-webkit-scrollbar { display: none; }
 
   .cat-card {
     flex-shrink: 0;
-    width: 90px;
+    min-width: 100px;
     background: white;
     border-radius: 16px;
-    padding: 14px 10px;
+    padding: 14px 12px;
     cursor: pointer;
     border: 2px solid #F0E8E0;
     text-align: center;
@@ -946,10 +971,15 @@ const styles = `
 
   @media (min-width: 600px) {
     .stats-grid { grid-template-columns: repeat(4, 1fr); }
-    .task-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .featured-card { width: 260px; }
-    .wallet-card { max-width: 600px; }
-    .wallet-page-card { max-width: 600px; }
+    .task-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .featured-card { width: 280px; }
+    .wallet-card { max-width: 700px; }
+    .wallet-page-card { max-width: 700px; }
+    .profile-head { max-width: 500px; }
+  }
+
+  @media (min-width: 900px) {
+    .task-list { grid-template-columns: 1fr 1fr 1fr; }
   }
 
   .stat-box {
@@ -1530,17 +1560,19 @@ export default function GigNest() {
         <button className="temp-btn" onClick={() => setScreen("splash")}>🦊 GigNest</button>
         <div className="main">
           <div className="topbar">
-            <div className="topbar-row">
-              <div className="topbar-logo">
-                <div className="topbar-fox">
-                  <img src="/fox-icon-192.png" alt="fox" />
+            <div className="topbar-inner">
+              <div className="topbar-row">
+                <div className="topbar-logo">
+                  <div className="topbar-fox">
+                    <img src="/fox-icon-192.png" alt="fox" />
+                  </div>
+                  Gig<span>N</span>est
                 </div>
-                Gig<span>N</span>est
-              </div>
-              <div className="topbar-right">
-                <div className="topbar-balance" onClick={() => setTab("wallet")}>💰 £{balance.toFixed(2)}</div>
-                <div className="topbar-bell" onClick={() => showToast("No new notifications")}>🔔<div className="bell-dot"/></div>
-                <div className="topbar-avatar" onClick={() => setTab("profile")}>{userName[0]}</div>
+                <div className="topbar-right">
+                  <div className="topbar-balance" onClick={() => setTab("wallet")}>💰 £{balance.toFixed(2)}</div>
+                  <div className="topbar-bell" onClick={() => showToast("No new notifications")}>🔔<div className="bell-dot"/></div>
+                  <div className="topbar-avatar" onClick={() => setTab("profile")}>{userName[0]}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -1551,12 +1583,14 @@ export default function GigNest() {
           {tab === "profile" && <Profile />}
 
           <div className="bottom-nav">
-            {[{id:"home",emoji:"🏠",label:"Home"},{id:"earn",emoji:"⚡",label:"Earn"},{id:"wallet",emoji:"💰",label:"Wallet"},{id:"profile",emoji:"👤",label:"Profile"}].map(item => (
-              <button key={item.id} className={"nav-item"+(tab===item.id?" active":"")} onClick={() => setTab(item.id)}>
-                <div className="nav-icon">{item.emoji}</div>
-                <div className="nav-label">{item.label}</div>
-              </button>
-            ))}
+            <div className="bottom-nav-inner">
+              {[{id:"home",emoji:"🏠",label:"Home"},{id:"earn",emoji:"⚡",label:"Earn"},{id:"wallet",emoji:"💰",label:"Wallet"},{id:"profile",emoji:"👤",label:"Profile"}].map(item => (
+                <button key={item.id} className={"nav-item"+(tab===item.id?" active":"")} onClick={() => setTab(item.id)}>
+                  <div className="nav-icon">{item.emoji}</div>
+                  <div className="nav-label">{item.label}</div>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

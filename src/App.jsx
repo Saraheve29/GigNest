@@ -604,27 +604,21 @@ const styles = `
 
   /* CATEGORIES */
   .cat-scroll {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 10px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 8px;
     margin-bottom: 22px;
   }
 
-  .cat-scroll::-webkit-scrollbar { display: none; }
-
-  @media (min-width: 600px) {
+  @media (max-width: 600px) {
     .cat-scroll {
-      flex-wrap: wrap;
-      overflow-x: visible;
-      overflow: visible;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 8px;
+      grid-template-columns: unset;
     }
-    .cat-card {
-      flex: 1 1 100px;
-      min-width: 100px;
-      max-width: 130px;
-    }
+    .cat-scroll::-webkit-scrollbar { display: none; }
   }
 
   .cat-card {
@@ -632,7 +626,7 @@ const styles = `
     min-width: 110px;
     background: white;
     border-radius: 16px;
-    padding: 16px 14px;
+    padding: 20px 14px;
     cursor: pointer;
     border: 2px solid #F0E8E0;
     text-align: center;
@@ -645,20 +639,20 @@ const styles = `
   }
 
   .cat-emoji {
-    font-size: 28px;
-    margin-bottom: 8px;
+    font-size: 32px;
+    margin-bottom: 10px;
   }
 
   .cat-name {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
     color: #1A1A1A;
     line-height: 1.2;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
   }
 
   .cat-count {
-    font-size: 11px;
+    font-size: 13px;
     color: #C4A090;
   }
 

@@ -603,22 +603,19 @@ const styles = `
   }
 
   /* CATEGORIES */
-  .cat-scroll {
+  .cat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
     margin-bottom: 22px;
+    width: 100%;
   }
 
   @media (max-width: 600px) {
-    .cat-scroll {
-      display: flex;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 8px;
-      grid-template-columns: unset;
+    .cat-grid {
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 8px;
     }
-    .cat-scroll::-webkit-scrollbar { display: none; }
   }
 
   .cat-card {
@@ -1577,7 +1574,7 @@ const [apiLoading, setApiLoading] = useState(false);
         <div className="section-title">Categories</div>
         <div className="section-link" onClick={() => setCat("all")}>See all</div>
       </div>
-      <div className="cat-scroll">
+      <div className="cat-grid">
         {CATEGORIES.map(c => (
           <div key={c.id} className={"cat-card"+(cat===c.id?" active":"")} onClick={() => setCat(c.id)}>
             <div className="cat-emoji">{c.emoji}</div>
@@ -1602,7 +1599,7 @@ const [apiLoading, setApiLoading] = useState(false);
       <button className="page-back" onClick={() => setTab("home")}>← Home</button>
       <div style={{fontSize:20,fontWeight:800,marginBottom:4}}>{CAT_TITLES[cat] || "All Opportunities"}</div>
       <div style={{fontSize:13,color:"#C4A090",marginBottom:16}}>{filteredTasks.length} jobs available</div>
-      <div className="cat-scroll" style={{marginBottom:16}}>
+      <div className="cat-grid" style={{marginBottom:16}}>
         {CATEGORIES.map(c => (
           <div key={c.id} className={"cat-card"+(cat===c.id?" active":"")} onClick={() => setCat(c.id)}>
             <div className="cat-emoji">{c.emoji}</div>

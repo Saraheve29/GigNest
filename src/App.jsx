@@ -1142,6 +1142,7 @@ const API_CONFIG = {
 };
 
 // Affiliate links — replace # with your actual affiliate URL when approved
+// eslint-disable-next-line no-unused-vars
 const AFFILIATE_LINKS = {
   rover: "https://rover.com/affiliates/YOUR_ID",
   pawshake: "https://pawshake.co.uk/affiliates/YOUR_ID",
@@ -1252,7 +1253,8 @@ export default function GigNest() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [appliedTasks, setAppliedTasks] = useState([]);
   const [apiTasks, setApiTasks] = useState([]);
-  const [apiLoading, setApiLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+const [apiLoading, setApiLoading] = useState(false);
 
   // Fetch real jobs from enabled APIs
   useEffect(() => {
